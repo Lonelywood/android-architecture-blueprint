@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-
 import com.github.lonelywood.blueprint.godt.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
