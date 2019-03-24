@@ -2,6 +2,7 @@ package com.github.lonelywood.blueprint.godt.ui
 
 import android.app.Application
 import com.github.lonelywood.blueprint.godt.BuildConfig
+import com.github.lonelywood.blueprint.godt.ui.di.remoteModel
 import com.github.lonelywood.blueprint.godt.ui.di.viewModelModule
 import com.github.lonelywood.blueprint.godt.ui.log.CrashlyticsReportingTree
 import com.github.lonelywood.blueprint.godt.ui.log.timberLogger
@@ -27,7 +28,9 @@ class GodtApplication: Application() {
                 timberLogger(Level.ERROR)
 
             androidContext(this@GodtApplication)
-            modules(viewModelModule)
+            modules(
+                viewModelModule,
+                remoteModel)
         }
     }
 
