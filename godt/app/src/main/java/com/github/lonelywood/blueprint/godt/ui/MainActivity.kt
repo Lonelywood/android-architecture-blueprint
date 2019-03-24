@@ -1,7 +1,7 @@
 package com.github.lonelywood.blueprint.godt.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.github.lonelywood.blueprint.godt.R
 
 class MainActivity : AppCompatActivity() {
