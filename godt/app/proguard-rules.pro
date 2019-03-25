@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-assumevalues class android.os.Build$VERSION {
+    int SDK_INT return 21..2147483647;
+}

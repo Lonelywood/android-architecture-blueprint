@@ -5,8 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".ui.recipes.RecipesFragment"
-        android:background="@color/colorAccent">
+        tools:context=".ui.recipes.RecipesFragment">
 
     <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"

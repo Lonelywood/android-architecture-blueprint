@@ -15,8 +15,11 @@ android {
 
     buildTypes {
         getByName("release") {
-            minifyEnabled = false
+            minifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        getByName("debug") {
+            minifyEnabled = false
         }
     }
 
@@ -54,19 +57,25 @@ dependencies {
 
     implementation("io.reactivex.rxjava2:rxkotlin:2.3.0")
 
+    implementation("com.squareup.okio:okio:2.2.2")
     implementation("com.squareup.okhttp3:okhttp:3.14.0")
     implementation("com.squareup.okhttp3:logging-interceptor:3.14.0")
     implementation("com.squareup.retrofit2:retrofit:2.5.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.5.0")
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.5.0")
 
-    testImplementation("junit:junit:4.12")
-    testImplementation("org.robolectric:robolectric:4.2")
-    testImplementation("io.mockk:mockk:1.9.2")
-    androidTestImplementation("io.mockk:mockk-android:1.9.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.1.1")
+    androidTestImplementation("androidx.test:core:1.1.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.0")
+    androidTestImplementation("io.mockk:mockk-android:1.9.2")
+
+    testImplementation("junit:junit:4.12")
+    testImplementation("org.robolectric:robolectric:4.2.1")
+    testImplementation("androidx.test.espresso:espresso-core:3.1.1")
+    testImplementation("androidx.test:core:1.1.0")
+    testImplementation("androidx.test.ext:junit:1.1.0")
+    testImplementation("io.mockk:mockk:1.9.2")
 
     implementation("androidx.fragment:fragment:1.1.0-alpha05")
-    debugImplementation("androidx.fragment:fragment-testing:1.1.0-alpha05")
+    implementation("androidx.fragment:fragment-testing:1.1.0-alpha05")
 }
