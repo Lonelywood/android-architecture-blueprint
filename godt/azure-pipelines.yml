@@ -1,0 +1,60 @@
+trigger:
+- master
+- develop
+- chore/setup-azure-pipelines
+
+pool:
+  vmImage: 'ubuntu-16.04'
+
+steps:
+- task: DownloadSecureFile@1
+  name: keystore
+  inputs:
+    secureFile: 'keystore'
+
+- script: 'echo "$DOWNLOADSECUREFILE_SECUREFILEPATH"'
+  
+- script: 'stat --printf="%s" $(Agent.TempDirectory)/keystore'
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: $(Agent.TempDirectory)
+    Contents: |
+      keystore
+    TargetFolder: '$(Build.SourcesDirectory)'
+
+- task: Gradle@2
+  inputs:
+    gradleWrapperFile: 'godt/gradlew' 
+    workingDirectory: 'godt'
+    tasks: 'build'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    #codeCoverageToolOption: 'None' # Optional. Options: none, cobertura, jaCoCo
+    #codeCoverageClassFilesDirectories: 'build/classes/main/' # Required when codeCoverageToolOption == False
+    #codeCoverageClassFilter: # Optional
+    #codeCoverageFailIfEmpty: false # Optional
+    gradleOptions: '-Xmx3072m'
+
+- task: AndroidSigning@3
+  inputs:
+    apkFiles: '**/*.apk'
+    apksign: true
+    apksignerKeystoreFile: 'keystore'
+    apksignerKeystorePassword: '$(keystore-password)'
+    apksignerKeystoreAlias: '$(key-alias)'
+    apksignerKeyPassword: '$(key-password)'
+    zipalign: false
+
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.apk'
+    targetFolder: '$(build.artifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(build.artifactStagingDirectory)'
+    artifactName: 'drop'
+    artifactType: 'container'
+
+#- task: 
